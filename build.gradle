@@ -1,0 +1,90 @@
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {  
+    options.encoding = "UTF-8"  
+} 
+version = '0.0.1-beta'
+
+jar {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    into('assets') {
+        from 'assets'
+    }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+    manifest {
+        attributes(
+                "Manifest-Version": 0.1,
+                "Main-Class": "kcwiki.x.cic.initializer.MainGui")
+    }
+}
+
+
+//添加 Maven 仓库
+repositories {
+    mavenCentral()
+}
+
+//添加依赖
+dependencies {
+    //Apache Utils
+    compile group: 'org.apache.commons', name: 'commons-exec', version: '1.3'
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+    compile group: 'com.google.guava', name: 'guava', version: '26.0-jre'
+
+    //JSON Patch
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.4'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.4'
+
+    compile group: 'org.bouncycastle', name: 'bcpkix-jdk15on', version: '1.60'
+    compile group: 'io.netty', name: 'netty-all', version: '4.1.30.Final'
+    compile('org.littleshoot:dnssec4j:0.1.6') {
+            exclude group: 'org.littleshoot', module: 'dnsjava'
+    }
+    compile group: 'dnsjava', name: 'dnsjava', version: '2.1.8'
+
+//GUI
+// https://mvnrepository.com/artifact/com.miglayout/miglayout-core
+compile group: 'com.miglayout', name: 'miglayout-core', version: '5.2'
+// https://mvnrepository.com/artifact/com.miglayout/miglayout-parent
+compile group: 'com.miglayout', name: 'miglayout-parent', version: '5.2'
+// https://mvnrepository.com/artifact/com.miglayout/miglayout-demo
+compile group: 'com.miglayout', name: 'miglayout-demo', version: '5.2'
+// https://mvnrepository.com/artifact/com.miglayout/miglayout-examples
+compile group: 'com.miglayout', name: 'miglayout-examples', version: '5.2'
+// https://mvnrepository.com/artifact/org.apache.pivot/pivot-core
+compile group: 'org.apache.pivot', name: 'pivot-core', version: '2.0.5'
+// https://mvnrepository.com/artifact/org.apache.pivot/pivot-wtk-terra
+compile group: 'org.apache.pivot', name: 'pivot-wtk-terra', version: '2.0.5'
+// https://mvnrepository.com/artifact/org.apache.pivot/pivot-web
+compile group: 'org.apache.pivot', name: 'pivot-web', version: '2.0.5'
+// https://mvnrepository.com/artifact/org.apache.pivot/pivot-charts
+compile group: 'org.apache.pivot', name: 'pivot-charts', version: '2.0.5'
+// https://mvnrepository.com/artifact/org.apache.pivot/pivot
+compile group: 'org.apache.pivot', name: 'pivot', version: '2.0.5'
+// https://mvnrepository.com/artifact/org.apache.pivot/pivot-wtk
+compile group: 'org.apache.pivot', name: 'pivot-wtk', version: '2.0.5'
+// https://mvnrepository.com/artifact/org.apache.pivot/pivot-charts
+compile group: 'org.apache.pivot', name: 'pivot-charts', version: '2.0.5'
+
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-core
+    compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+allprojects {
+   task allTask << {
+      println project.name
+   }
+}
