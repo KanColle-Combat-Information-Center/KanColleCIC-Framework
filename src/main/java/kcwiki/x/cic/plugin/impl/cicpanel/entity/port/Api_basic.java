@@ -2,7 +2,6 @@
   * Copyright 2018 bejson.com 
   */
 package kcwiki.x.cic.plugin.impl.cicpanel.entity.port;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,7 +21,7 @@ public class Api_basic {
     private int api_rank;
     private long api_experience;
     private String api_fleetname;
-    private Date api_comment;
+    private String api_comment;
     private String api_comment_id;
     private int api_max_chara;
     private int api_max_slotitem;
@@ -110,10 +109,10 @@ public class Api_basic {
          return api_fleetname;
      }
 
-    public void setApi_comment(Date api_comment) {
+    public void setApi_comment(String api_comment) {
          this.api_comment = api_comment;
      }
-     public Date getApi_comment() {
+     public String getApi_comment() {
          return api_comment;
      }
 
